@@ -1,0 +1,52 @@
+Del archivo coli.gff que gene es el mayor y que gene es el menor por posición de inicio.
+grep "gene" coli.gff | cut -f4,9 | sort -n | head
+190
+grep "gene" coli.gff | cut -f4,9 | sort -n | tail
+4640942
+
+Del archivo coli.gff cual es la distancia mas grande entre un gene
+grep "gene" coli.gff | awk '{print $5-$4}' | sort -r | head
+990
+
+Del archivo coli.gff cuantos genes están repetidos por posición
+grep "gene" coli.gff | cut -f4,5 | sort | uniq -c | wc -l
+4753
+
+Del archivo coli.gff cuantos genes están en strand forward y cuantos en reverse
+cut -f3,7 coli.gff | grep "gene" | sort | uniq -c
+	2217 gene	+
+	2290 gene	-
+
+Del archivo mirna_human_ensembl_hg38.txt cual es la distancia promedia entre la posición de inicio y fin
+awk 'BEGIN{
+	suma = 0
+	contador = 0
+}
+{
+	{print$3-$2};
+        suma += $1
+        contador++
+}
+END{
+promedio = suma / contador++
+        print "promedio de distancia:", promedio
+}' mirna_human_ensembl_hg38.txt
+
+Promedio de distancia: 9.1087
+
+Del archivo  coli_protein.faa cuantas veces se encuentra el string “MR”
+grep "MR" coli_protein.faa | wc -l
+1901
+
+Del archivo  coli_protein.faa cuantas veces se encuentra el string “MR” solo al inicio del renglón
+grep -P ^"MR" coli_protein.faa | wc -l
+267
+
+Del archivo mirna_human_ensembl_hg38.txt reportar el gene id, chromosoma, inicio y fin
+9, 1, 2, 3
+cut -f1,2,3,7 mirna_human_ensembl_hg38.txt > datosMIRNA.txt
+
+Crea un script que reciba como parámetros el nombre de archivo, columna de incio, columna fin y que 
+calcular la distancia y saque el promedio de distancias.
+scriptExam1.bash
+
